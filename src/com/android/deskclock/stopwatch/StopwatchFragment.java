@@ -438,7 +438,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
     }
 
+    private static final boolean SIMPLE_KEEP_SCREEN_ON = true;
+
     private void adjustWakeLock() {
+        if (SIMPLE_KEEP_SCREEN_ON) return;
         final boolean appInForeground = DataModel.getDataModel().isApplicationInForeground();
         if (getStopwatch().isRunning() && isTabSelected() && appInForeground) {
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -448,6 +451,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     private void releaseWakeLock() {
+        if (SIMPLE_KEEP_SCREEN_ON) return;
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
